@@ -1,8 +1,8 @@
 class GoParquetTools < Formula
   desc "Utility to deal with Parquet data"
   homepage "https://github.com/hangxie/parquet-tools"
-  url "https://github.com/hangxie/parquet-tools/archive/v1.7.2.tar.gz"
-  sha256 "9095f306a81bb765e671b854f2426d0c1828f0f5abaa8a3c910a76d638ecdc34"
+  url "https://github.com/hangxie/parquet-tools/archive/v1.8.0.tar.gz"
+  sha256 "e9e1a289e5d49c1a3ba6f5c6b652f4a64499cc8329c4bf8902a74eb4ce3c852b"
   license "BSD-3-Clause"
 
   depends_on "go" => :build
@@ -10,7 +10,7 @@ class GoParquetTools < Formula
   conflicts_with "parquet-tools", because: "both install `parquet-tools` executables"
 
   resource("test-parquet") do
-    url "https://github.com/hangxie/parquet-tools/raw/v1.7.2/cmd/testdata/good.parquet"
+    url "https://github.com/hangxie/parquet-tools/raw/v1.8.0/cmd/testdata/good.parquet"
     sha256 "d6ab36ac8bd23da136b7f8bd2a6c188db6421ea4e85870e247e57ddf554584ed"
   end
 
