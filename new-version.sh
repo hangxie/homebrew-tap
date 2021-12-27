@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 VERSION=$1
 
 if [ -z "${VERSION}" ]; then
@@ -7,7 +9,10 @@ if [ -z "${VERSION}" ]; then
     exit 1
 fi
 
-SHA256=$(curl -sL https://github.com/hangxie/parquet-tools/archive/${VERSION}.tar.gz | shasum -a 256 | awk '{print $1}')
+if ! SHA256=$(curl -fsL https://github.com/hangxie/parquet-tools/archive/${VERSION}.tar.gz | shasum -a 256 | awk '{print $1}'); then
+    echo failed to retrirve version ${VERSION}
+    exit 1
+fi
 
 cat > $(dirname $0)/Formula/go-parquet-tools.rb <<EOF
 class GoParquetTools < Formula
