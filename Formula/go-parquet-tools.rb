@@ -11,7 +11,7 @@ class GoParquetTools < Formula
 
   resource("test-parquet") do
     url "https://github.com/hangxie/parquet-tools/raw/v1.16.0/cmd/testdata/good.parquet"
-    sha256 "d6ab36ac8bd23da136b7f8bd2a6c188db6421ea4e85870e247e57ddf554584ed"
+    sha256 "6734f5138766b4efdcc7290db675b0439bd892518b4e411581654086a37191d1"
   end
 
   def install
