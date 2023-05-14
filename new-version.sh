@@ -9,8 +9,14 @@ if [ -z "${VERSION}" ]; then
     exit 1
 fi
 
-if ! SHA256=$(curl -fsL https://github.com/hangxie/parquet-tools/archive/${VERSION}.tar.gz | shasum -a 256 | awk '{print $1}'); then
-    echo failed to retrirve version ${VERSION}
+if ! SRC_SHA256=$(curl -fsL https://github.com/hangxie/parquet-tools/archive/${VERSION}.tar.gz | shasum -a 256 | awk '{print $1}'); then
+    echo failed to retrirve source code of version ${VERSION}
+    exit 1
+fi
+
+TEST_FILE=https://github.com/hangxie/parquet-tools/raw/${VERSION}/testdata/good.parquet
+if ! TEST_FILE_SHA256=$(curl -fsL ${TEST_FILE} | shasum -a 256 | awk '{print $1}'); then
+    echo failed to retrieve test file of version ${VERSION}
     exit 1
 fi
 
@@ -19,7 +25,7 @@ class GoParquetTools < Formula
   desc "Utility to deal with Parquet data"
   homepage "https://github.com/hangxie/parquet-tools"
   url "https://github.com/hangxie/parquet-tools/archive/${VERSION}.tar.gz"
-  sha256 "${SHA256}"
+  sha256 "${SRC_SHA256}"
   license "BSD-3-Clause"
 
   depends_on "go" => :build
@@ -27,8 +33,8 @@ class GoParquetTools < Formula
   conflicts_with "parquet-tools", because: "both install \`parquet-tools\` executables"
 
   resource("test-parquet") do
-    url "https://github.com/hangxie/parquet-tools/raw/${VERSION}/cmd/testdata/good.parquet"
-    sha256 "d6ab36ac8bd23da136b7f8bd2a6c188db6421ea4e85870e247e57ddf554584ed"
+    url "${TEST_FILE}"
+    sha256 "${TEST_FILE_SHA256}"
   end
 
   def install
