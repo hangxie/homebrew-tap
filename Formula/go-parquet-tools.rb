@@ -15,7 +15,7 @@ class GoParquetTools < Formula
   end
 
   def install
-    system "go", "build", "-ldflags", "-s -w -X main.version=v#{version} -X main.build=#{Time.now.iso8601}", *std_go_args, "-o", bin/"parquet-tools"
+    system "go", "build", "-ldflags", "-s -w -X github.com/hangxie/parquet-tools/cmd.version=v#{version} -X github.com/hangxie/parquet-tools/cmd.build=#{Time.now.iso8601}", *std_go_args, "-o", bin/"parquet-tools"
   end
 
   test do
