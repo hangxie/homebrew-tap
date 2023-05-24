@@ -1,8 +1,8 @@
 class GoParquetTools < Formula
   desc "Utility to deal with Parquet data"
   homepage "https://github.com/hangxie/parquet-tools"
-  url "https://github.com/hangxie/parquet-tools/archive/v1.19.0.tar.gz"
-  sha256 "acae07e3b6edcfa948ae07c19330bb7e9f867b85fc6889513c45829a068e5463"
+  url "https://github.com/hangxie/parquet-tools/archive/v1.19.1.tar.gz"
+  sha256 "fbe9ba84995af02864b16616c05f26bc4c8e68b720909564361629d98fc78037"
   license "BSD-3-Clause"
 
   depends_on "go" => :build
@@ -10,12 +10,12 @@ class GoParquetTools < Formula
   conflicts_with "parquet-tools", because: "both install `parquet-tools` executables"
 
   resource("test-parquet") do
-    url "https://github.com/hangxie/parquet-tools/raw/v1.19.0/testdata/good.parquet"
+    url "https://github.com/hangxie/parquet-tools/raw/v1.19.1/testdata/good.parquet"
     sha256 "daf5090fbc5523cf06df8896cf298dd5e53c058457e34766407cb6bff7522ba5"
   end
 
   def install
-    system "go", "build", "-ldflags", "-s -w -X github.com/hangxie/parquet-tools/cmd.version=v#{version} -X github.com/hangxie/parquet-tools/cmd.build=#{Time.now.iso8601} -X github.com/hangxie/parquet-tools/cmd.gitHash=8933920", *std_go_args, "-o", "#{bin}/parquet-tools"
+    system "go", "build", "-ldflags", "-s -w -X github.com/hangxie/parquet-tools/cmd.version=v#{version} -X github.com/hangxie/parquet-tools/cmd.build=#{Time.now.iso8601} -X github.com/hangxie/parquet-tools/cmd.gitHash=b8462ef", *std_go_args, "-o", "#{bin}/parquet-tools"
   end
 
   test do
