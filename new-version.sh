@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+REPO=github.com/hangxie/parquet-tools
 VERSION=$1
 
 if [ -z "${VERSION}" ]; then
@@ -9,12 +10,17 @@ if [ -z "${VERSION}" ]; then
     exit 1
 fi
 
-if ! SRC_SHA256=$(curl -fsL https://github.com/hangxie/parquet-tools/archive/${VERSION}.tar.gz | shasum -a 256 | awk '{print $1}'); then
+if ! GIT_HASH=$(git ls-remote https://${REPO} ${VERSION} | cut -c 1-7); then
+    echo failed to retrirve git hash of version ${VERSION}
+    exit 1
+fi
+
+if ! SRC_SHA256=$(curl -fsL https://${REPO}/archive/${VERSION}.tar.gz | shasum -a 256 | awk '{print $1}'); then
     echo failed to retrirve source code of version ${VERSION}
     exit 1
 fi
 
-TEST_FILE=https://github.com/hangxie/parquet-tools/raw/${VERSION}/testdata/good.parquet
+TEST_FILE=https://${REPO}/raw/${VERSION}/testdata/good.parquet
 if ! TEST_FILE_SHA256=$(curl -fsL ${TEST_FILE} | shasum -a 256 | awk '{print $1}'); then
     echo failed to retrieve test file of version ${VERSION}
     exit 1
@@ -23,8 +29,8 @@ fi
 cat > $(dirname $0)/Formula/go-parquet-tools.rb <<EOF
 class GoParquetTools < Formula
   desc "Utility to deal with Parquet data"
-  homepage "https://github.com/hangxie/parquet-tools"
-  url "https://github.com/hangxie/parquet-tools/archive/${VERSION}.tar.gz"
+  homepage "https://${REPO}"
+  url "https://${REPO}/archive/${VERSION}.tar.gz"
   sha256 "${SRC_SHA256}"
   license "BSD-3-Clause"
 
@@ -38,7 +44,7 @@ class GoParquetTools < Formula
   end
 
   def install
-    system "go", "build", "-ldflags", "-s -w -X main.version=v#{version} -X main.build=#{Time.now.iso8601}", *std_go_args, "-o", bin/"parquet-tools"
+    system "go", "build", "-ldflags", "-s -w -X ${REPO}/cmd.version=v#{version} -X ${REPO}/cmd.build=#{Time.now.iso8601} -X ${REPO}/cmd.gitHash=${GIT_HASH}", *std_go_args, "-o", "bin/parquet-tools"
   end
 
   test do
