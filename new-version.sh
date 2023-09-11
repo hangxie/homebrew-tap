@@ -36,8 +36,6 @@ class GoParquetTools < Formula
 
   depends_on "go" => :build
 
-  conflicts_with "parquet-tools", because: "both install \`parquet-tools\` executables"
-
   resource("test-parquet") do
     url "${TEST_FILE}"
     sha256 "${TEST_FILE_SHA256}"

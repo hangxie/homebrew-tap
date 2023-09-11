@@ -7,8 +7,6 @@ class GoParquetTools < Formula
 
   depends_on "go" => :build
 
-  conflicts_with "parquet-tools", because: "both install `parquet-tools` executables"
-
   resource("test-parquet") do
     url "https://github.com/hangxie/parquet-tools/raw/v1.20.1/testdata/good.parquet"
     sha256 "daf5090fbc5523cf06df8896cf298dd5e53c058457e34766407cb6bff7522ba5"
