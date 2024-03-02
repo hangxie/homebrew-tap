@@ -42,6 +42,7 @@ class GoParquetTools < Formula
   end
 
   def install
+    ENV["CGO_ENABLED"] = "0"
     system "go", "build", "-ldflags", "-s -w -X ${REPO}/cmd.version=v#{version} -X ${REPO}/cmd.build=#{Time.now.iso8601} -X ${REPO}/cmd.gitHash=${GIT_HASH}", *std_go_args, "-o", "#{bin}/parquet-tools"
   end
 
