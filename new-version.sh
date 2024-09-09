@@ -67,7 +67,6 @@ class GoParquetTools < Formula
 
   bottle do
     root_url "https://github.com/hangxie/parquet-tools/releases/download/${VERSION}"
-    root_url "https://github.com/hangxie/homebrew-tap-test/releases/download/${VERSION}"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "${ARM64_CHKSUM}"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "${ARM64_CHKSUM}"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "${ARM64_CHKSUM}"
