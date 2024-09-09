@@ -25,7 +25,8 @@ class GoParquetTools < Formula
   end
 
   bottle do
-    root_url "ottps://github.com/hangxie/parquet-tools/releases/download/v1.22.1"
+    root_url "https://github.com/hangxie/parquet-tools/releases/download/v1.22.1"
+    root_url "https://github.com/hangxie/homebrew-tap-test/releases/download/v1.22.1"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a219fcb30d398d55c880463ef7e816db2a778008bc2d1071924c7bb7ab545d03"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "a219fcb30d398d55c880463ef7e816db2a778008bc2d1071924c7bb7ab545d03"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "a219fcb30d398d55c880463ef7e816db2a778008bc2d1071924c7bb7ab545d03"
