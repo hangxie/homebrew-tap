@@ -26,6 +26,18 @@ if ! TEST_FILE_SHA256=$(curl -fsL ${TEST_FILE} | shasum -a 256 | awk '{print $1}
     exit 1
 fi
 
+ARM64_BOTTLE=https://github.com/hangxie/parquet-tools/releases/download/${VERSION}/go-parquet-tools-${VERSION:1}.arm64_sonoma.bottle.tar.gz
+if ! ARM64_CHKSUM=$(curl -fsL ${ARM64_BOTTLE} | shasum -a 256 | awk '{print $1}'); then
+    echo failed to retrieve arm64 bottle for version ${VERSION}
+    exit 1
+fi
+
+AMD64_BOTTLE=https://github.com/hangxie/parquet-tools/releases/download/${VERSION}/go-parquet-tools-${VERSION:1}.sonoma.bottle.tar.gz
+if ! AMD64_CHKSUM=$(curl -fsL ${AMD64_BOTTLE} | shasum -a 256 | awk '{print $1}'); then
+    echo failed to retrieve amd64 bottle for version ${VERSION}
+    exit 1
+fi
+
 cat > $(dirname $0)/Formula/go-parquet-tools.rb <<EOF
 class GoParquetTools < Formula
   desc "Utility to deal with Parquet data"
@@ -51,6 +63,17 @@ class GoParquetTools < Formula
 
     output = shell_output("#{bin}/parquet-tools schema #{testpath}/good.parquet")
     assert_match "name=Parquet_go_root", output
+  end
+
+  bottle do
+    root_url "ottps://github.com/hangxie/parquet-tools/releases/download/${VERSION}"
+    root_url "https://github.com/hangxie/homebrew-tap-test/releases/download/${VERSION}"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "${ARM64_CHKSUM}"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "${ARM64_CHKSUM}"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "${ARM64_CHKSUM}"
+    sha256 cellar: :any_skip_relocation, sonoma:         "${AMD64_CHKSUM}"
+    sha256 cellar: :any_skip_relocation, ventura:        "${AMD64_CHKSUM}"
+    sha256 cellar: :any_skip_relocation, monterey:       "${AMD64_CHKSUM}"
   end
 end
 EOF
