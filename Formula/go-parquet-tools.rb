@@ -1,20 +1,20 @@
 class GoParquetTools < Formula
   desc "Utility to deal with Parquet data"
   homepage "https://github.com/hangxie/parquet-tools"
-  url "https://github.com/hangxie/parquet-tools/archive/v1.25.6.tar.gz"
-  sha256 "457e1cb11257f473f6363074b20b663f9805ceaba79ccb25382be3c588feee87"
+  url "https://github.com/hangxie/parquet-tools/archive/v1.25.7.tar.gz"
+  sha256 "7038abd746ef72d1ed20f45a973253f3c80fe68afbb7de44c2a779f5185fa69f"
   license "BSD-3-Clause"
 
   depends_on "go" => :build
 
   resource("test-parquet") do
-    url "https://github.com/hangxie/parquet-tools/raw/v1.25.6/testdata/good.parquet"
+    url "https://github.com/hangxie/parquet-tools/raw/v1.25.7/testdata/good.parquet"
     sha256 "daf5090fbc5523cf06df8896cf298dd5e53c058457e34766407cb6bff7522ba5"
   end
 
   def install
     ENV["CGO_ENABLED"] = "0"
-    system "go", "build", "-ldflags", "-s -w -X github.com/hangxie/parquet-tools/cmd.version=v#{version} -X github.com/hangxie/parquet-tools/cmd.build=#{Time.now.iso8601} -X github.com/hangxie/parquet-tools/cmd.gitHash=853f114 -X github.com/hangxie/parquet-tools/cmd.source=source", *std_go_args, "-o", "#{bin}/parquet-tools"
+    system "go", "build", "-ldflags", "-s -w -X github.com/hangxie/parquet-tools/cmd.version=v#{version} -X github.com/hangxie/parquet-tools/cmd.build=#{Time.now.iso8601} -X github.com/hangxie/parquet-tools/cmd.gitHash=c3443a5 -X github.com/hangxie/parquet-tools/cmd.source=source", *std_go_args, "-o", "#{bin}/parquet-tools"
   end
 
   test do
@@ -25,14 +25,14 @@ class GoParquetTools < Formula
   end
 
   bottle do
-    root_url "https://github.com/hangxie/parquet-tools/releases/download/v1.25.6"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "6922de63d3c1524f7681db14d6c90b52079309ac325ceed20ba136645df43738"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6922de63d3c1524f7681db14d6c90b52079309ac325ceed20ba136645df43738"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6922de63d3c1524f7681db14d6c90b52079309ac325ceed20ba136645df43738"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6922de63d3c1524f7681db14d6c90b52079309ac325ceed20ba136645df43738"
-    sha256 cellar: :any_skip_relocation, sequoia:        "a35a3bdb781b034156aa4148c9319c7b2a4292aa188e1dda435e7e2b5fa6ee4d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a35a3bdb781b034156aa4148c9319c7b2a4292aa188e1dda435e7e2b5fa6ee4d"
-    sha256 cellar: :any_skip_relocation, ventura:        "a35a3bdb781b034156aa4148c9319c7b2a4292aa188e1dda435e7e2b5fa6ee4d"
-    sha256 cellar: :any_skip_relocation, monterey:       "a35a3bdb781b034156aa4148c9319c7b2a4292aa188e1dda435e7e2b5fa6ee4d"
+    root_url "https://github.com/hangxie/parquet-tools/releases/download/v1.25.7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "17d94797a1286f4fdf45bc226dece0a6f53580bf62cd17ac32f2751db40e6f04"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "17d94797a1286f4fdf45bc226dece0a6f53580bf62cd17ac32f2751db40e6f04"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "17d94797a1286f4fdf45bc226dece0a6f53580bf62cd17ac32f2751db40e6f04"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "17d94797a1286f4fdf45bc226dece0a6f53580bf62cd17ac32f2751db40e6f04"
+    sha256 cellar: :any_skip_relocation, sequoia:        "1f966139d9d767df327d228233ac234fea52afe7098e6617ac7508fb3e03c2c9"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1f966139d9d767df327d228233ac234fea52afe7098e6617ac7508fb3e03c2c9"
+    sha256 cellar: :any_skip_relocation, ventura:        "1f966139d9d767df327d228233ac234fea52afe7098e6617ac7508fb3e03c2c9"
+    sha256 cellar: :any_skip_relocation, monterey:       "1f966139d9d767df327d228233ac234fea52afe7098e6617ac7508fb3e03c2c9"
   end
 end
